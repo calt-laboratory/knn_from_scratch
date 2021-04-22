@@ -17,20 +17,20 @@ class KNNClassifier():
         self.k = k
 
     @staticmethod
-    def euclidean_distance(p: np.ndarray, q: np.ndarray):
+    def euclidean_distance(p: np.ndarray, q: np.ndarray) -> np.float:
         """
         Static method for the computation of the Euclidean distance between two data points.
         """
         return np.linalg.norm(p - q)
 
-    def _k_nearest_neighbors(self, X_new: np.ndarray):
+    def _k_nearest_neighbors(self, X_new: np.ndarray) -> np.ndarray:
         """
         Protected method for the computation of the k-nearest neighbors of one or more sample x-data.
         """
         knn_idx_array = np.array([np.argsort([KNNClassifier.euclidean_distance(p_i, q_i) for q_i in self.X])[:self.k] for p_i in X_new])
         return knn_idx_array
 
-    def _class_majority_voting(self, knn_idx: np.ndarray):
+    def _class_majority_voting(self, knn_idx: np.ndarray) -> np.int:
         """
         Protected method for choosing the class for one or more data points by taking this class which occured most
         during the k-nearest neighbor computation (= majority voting).
@@ -46,7 +46,7 @@ class KNNClassifier():
         self.X = X
         self.y = y
 
-    def predict(self, X_new: np.ndarray):
+    def predict(self, X_new: np.ndarray) -> np.ndarray:
         """
         Predicts the class for one or more new data points.
         """
@@ -54,7 +54,7 @@ class KNNClassifier():
         class_predictions = np.array([self._class_majority_voting(i) for i in knn_idx_array])
         return class_predictions
 
-    def accuracy(self, y_true: np.ndarray, y_predictions: np.ndarray):
+    def accuracy(self, y_true: np.ndarray, y_predictions: np.ndarray) -> np.float:
         """
         Computation of the accuracy of the model.
         """
