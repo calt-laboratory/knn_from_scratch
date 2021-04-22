@@ -13,7 +13,7 @@ X, y = iris_dataset.data, iris_dataset.target
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=37)
 
 # use knn classifier
-clf = KnnClassifier(k=5)
+clf = KNNClassifier(k=5)
 clf.fit(X_train, y_train)
 preds = clf.predict(X_test)
 print(f"True classes: {y_test}")
